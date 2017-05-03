@@ -6,28 +6,34 @@ body, .container {
   box-shadow: 15px 0 20px -4px #f8f8f8, -15px 0 15px -4px #f8f8f8;
 }
 
+header {
+  display: table;
+}
 
 #logo {
-  background-image: url('../makerdao.svg');
-  width: 100px;
-  height: 88px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
 
-#logo, #tag-line {
-  float: left;
-}
-
 #tag-line {
+  display: table-cell;
   position: relative;
-  height: 103px;
   width: 300px;
-
+  height: 100%;
   span {
     position: absolute;
     bottom: 0;
     font-size: 23px;
+  }
+}
+
+@media (max-width: 400px) {
+  #logo {
+    width: 70px;
+  }
+  #tag-line span {
+    font-size: 19px;
+    width: 220px;
   }
 }
 
@@ -57,20 +63,38 @@ body, .container {
 #modals {
   position: absolute;
   top: 0;
+  height: 100%;
 }
 
-.task-modal {
-  top: 150px;
-  z-index: 2;
-}
-
-#task-modal-overlay {
-  background-color: gray;
+#task-modal-container {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  height: 100%;
+}
+
+.task-modal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 900px;
+  margin: 0 auto;
+  left: 4px;
+  right: 4px;
+  z-index: 2;
+  max-height: 95%;
+  overflow-y: auto;
+}
+
+
+
+#task-modal-overlay {
+  background-color: gray;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   opacity: 0.4;
   z-index: 1;
 }

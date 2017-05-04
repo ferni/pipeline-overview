@@ -7597,32 +7597,26 @@ body,
 .container {
   box-shadow: 15px 0 20px -4px #f8f8f8, -15px 0 15px -4px #f8f8f8;
 }
-header {
-  display: table;
-}
 #logo {
+  background-image: url(e52ff7b416a505d604f6a3528d7933b4.svg);
+  width: 100px;
+  height: 88px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
+#logo,
 #tag-line {
-  display: table-cell;
+  float: left;
+}
+#tag-line {
   position: relative;
+  height: 103px;
   width: 300px;
-  height: 100%;
 }
 #tag-line span {
   position: absolute;
   bottom: 0;
   font-size: 23px;
-}
-@media (max-width: 400px) {
-  #logo {
-    width: 70px;
-  }
-  #tag-line span {
-    font-size: 19px;
-    width: 220px;
-  }
 }
 .table {
   background-color: white;
@@ -7646,33 +7640,18 @@ header {
 #modals {
   position: absolute;
   top: 0;
-  height: 100%;
 }
-#task-modal-container {
+.task-modal {
+  top: 150px;
+  z-index: 2;
+}
+#task-modal-overlay {
+  background-color: gray;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  height: 100%;
-}
-.task-modal {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 900px;
-  margin: 0 auto;
-  left: 4px;
-  right: 4px;
-  z-index: 2;
-  max-height: 95%;
-  overflow-y: auto;
-}
-#task-modal-overlay {
-  background-color: gray;
-  position: absolute;
-  height: 100%;
-  width: 100%;
   opacity: 0.4;
   z-index: 1;
 }
@@ -7681,38 +7660,39 @@ header {
   right: 10px;
   top: 10px;
 }
-/* Use half of the width to center the tooltip */
 /* Tooltip container */
 .my-tooltip {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
-  /* Arrow */
+  /* If you want dots under the hoverable text */
 }
 .my-tooltip .tooltiptext {
   visibility: hidden;
   width: 210px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: black;
   color: #fff;
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
-  /* Position the tooltip text */
+  /* Position the tooltip text - see examples below! */
   position: absolute;
+  z-index: 1;
   bottom: 100%;
   left: 50%;
-  margin-left: -24px;
+  margin-left: -105px;
+  /* Use half of the width to center the tooltip */
 }
 .my-tooltip .tooltiptext::after {
   content: " ";
   position: absolute;
   top: 100%;
   /* At the bottom of the tooltip */
-  left: 24px;
+  left: 50%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  border-color: black transparent transparent transparent;
 }
 .my-tooltip:hover .tooltiptext {
   visibility: visible;

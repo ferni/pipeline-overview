@@ -146,16 +146,18 @@
 		});
 
 		// Animated background
-		_background2.default.start({
-			colors: _data2.default.groups.map(function (group) {
-				return group.color;
-			}),
-			lineSeparation: 22,
-			lineLength: 20,
-			lineWidth: 4,
-			tileWidth: 200,
-			alpha: 0.4
-		});
+		if (screen.width > 768) {
+			_background2.default.start({
+				colors: _data2.default.groups.map(function (group) {
+					return group.color;
+				}),
+				lineSeparation: 22,
+				lineLength: 20,
+				lineWidth: 4,
+				tileWidth: 200,
+				alpha: 0.4
+			});
+		}
 	});
 
 /***/ }),
@@ -5188,10 +5190,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	function draw(ctx) {
-	  var num = 0;
-	}
-
 	function fitToContainer(canvas) {
 	  // Make it visually fill the positioned parent
 	  canvas.style.width = '100%';

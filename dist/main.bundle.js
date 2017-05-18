@@ -46,25 +46,37 @@
 
 	'use strict';
 
-	__webpack_require__(73);
+	__webpack_require__(70);
 
-	__webpack_require__(87);
+	__webpack_require__(84);
 
-	var _handlebars = __webpack_require__(89);
+	var _handlebars = __webpack_require__(86);
 
 	var _handlebars2 = _interopRequireDefault(_handlebars);
 
-	var _data = __webpack_require__(120);
+	var _data = __webpack_require__(117);
 
 	var _data2 = _interopRequireDefault(_data);
 
-	var _background = __webpack_require__(121);
+	var _background = __webpack_require__(118);
 
 	var _background2 = _interopRequireDefault(_background);
 
-	var _makerdao = __webpack_require__(122);
+	var _maker_black = __webpack_require__(119);
 
-	var _makerdao2 = _interopRequireDefault(_makerdao);
+	var _maker_black2 = _interopRequireDefault(_maker_black);
+
+	var _twitter_black = __webpack_require__(120);
+
+	var _twitter_black2 = _interopRequireDefault(_twitter_black);
+
+	var _chat_black = __webpack_require__(121);
+
+	var _chat_black2 = _interopRequireDefault(_chat_black);
+
+	var _github_black = __webpack_require__(122);
+
+	var _github_black2 = _interopRequireDefault(_github_black);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75,7 +87,7 @@
 		_data2.default.groups.forEach(function (group) {
 			group.tasks.forEach(function (task) {
 				task.id = id++;
-				task.color = group.color;
+				task.colors = group.colors;
 			});
 		});
 	})();
@@ -100,11 +112,15 @@
 		}
 		var html = '';
 		for (var i = 0; i < _data2.default.stages.length; i++) {
+			var color = i % 2 ? task.colors.lightCell : task.colors.darkCell;
 			if (i === stageIndex) {
 				var link = templates['task-link'](task);
-				html += templates['task-column']({ content: link });
+				html += templates['task-column']({
+					content: link,
+					color: color
+				});
 			} else {
-				html += templates['task-column']({});
+				html += templates['task-column']({ color: color });
 			}
 		}
 		return new _handlebars2.default.SafeString(html);
@@ -123,11 +139,15 @@
 		});
 
 		document.getElementById("content").innerHTML = templates['main'](_data2.default);
-		var logo = document.getElementById("logo");
-		logo.setAttribute('src', _makerdao2.default);
+
+		// todo: fix webpack build and get rid of this
+		document.getElementById("logo").setAttribute('src', _maker_black2.default);
+		document.getElementById("twitter-img").setAttribute('src', _twitter_black2.default);
+		document.getElementById("chat-img").setAttribute('src', _chat_black2.default);
+		document.getElementById("github-img").setAttribute('src', _github_black2.default);
 
 		// Bind click events
-		document.querySelectorAll('.js-task-link').forEach(function (link) {
+		document.querySelectorAll('.task-link').forEach(function (link) {
 			link.addEventListener('click', function (event) {
 				// Show task modal
 				event.preventDefault();
@@ -149,11 +169,11 @@
 		if (screen.width > 768) {
 			_background2.default.start({
 				colors: _data2.default.groups.map(function (group) {
-					return group.color;
+					return group.colors.main;
 				}),
 				lineSeparation: 22,
 				lineLength: 20,
-				lineWidth: 4,
+				lineWidth: 8,
 				tileWidth: 200,
 				alpha: 0.4
 			});
@@ -230,15 +250,15 @@
 /* 67 */,
 /* 68 */,
 /* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ }),
+/* 71 */,
+/* 72 */,
+/* 73 */,
 /* 74 */,
 /* 75 */,
 /* 76 */,
@@ -249,17 +269,14 @@
 /* 81 */,
 /* 82 */,
 /* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */
+/* 84 */
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 88 */,
-/* 89 */
+/* 85 */,
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// USAGE:
@@ -268,9 +285,9 @@
 
 	// var local = handlebars.create();
 
-	var handlebars = __webpack_require__(90)['default'];
+	var handlebars = __webpack_require__(87)['default'];
 
-	var printer = __webpack_require__(118);
+	var printer = __webpack_require__(115);
 	handlebars.PrintVisitor = printer.PrintVisitor;
 	handlebars.print = printer.print;
 
@@ -278,7 +295,7 @@
 
 	// Publish a Node.js require() handler for .handlebars and .hbs files
 	function extension(module, filename) {
-	  var fs = __webpack_require__(119);
+	  var fs = __webpack_require__(116);
 	  var templateString = fs.readFileSync(filename, 'utf8');
 	  module.exports = handlebars.compile(templateString);
 	}
@@ -290,7 +307,7 @@
 
 
 /***/ }),
-/* 90 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -300,29 +317,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _handlebarsRuntime = __webpack_require__(91);
+	var _handlebarsRuntime = __webpack_require__(88);
 
 	var _handlebarsRuntime2 = _interopRequireDefault(_handlebarsRuntime);
 
 	// Compiler imports
 
-	var _handlebarsCompilerAst = __webpack_require__(109);
+	var _handlebarsCompilerAst = __webpack_require__(106);
 
 	var _handlebarsCompilerAst2 = _interopRequireDefault(_handlebarsCompilerAst);
 
-	var _handlebarsCompilerBase = __webpack_require__(110);
+	var _handlebarsCompilerBase = __webpack_require__(107);
 
-	var _handlebarsCompilerCompiler = __webpack_require__(115);
+	var _handlebarsCompilerCompiler = __webpack_require__(112);
 
-	var _handlebarsCompilerJavascriptCompiler = __webpack_require__(116);
+	var _handlebarsCompilerJavascriptCompiler = __webpack_require__(113);
 
 	var _handlebarsCompilerJavascriptCompiler2 = _interopRequireDefault(_handlebarsCompilerJavascriptCompiler);
 
-	var _handlebarsCompilerVisitor = __webpack_require__(113);
+	var _handlebarsCompilerVisitor = __webpack_require__(110);
 
 	var _handlebarsCompilerVisitor2 = _interopRequireDefault(_handlebarsCompilerVisitor);
 
-	var _handlebarsNoConflict = __webpack_require__(108);
+	var _handlebarsNoConflict = __webpack_require__(105);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -361,7 +378,7 @@
 
 
 /***/ }),
-/* 91 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -375,30 +392,30 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _handlebarsBase = __webpack_require__(92);
+	var _handlebarsBase = __webpack_require__(89);
 
 	var base = _interopRequireWildcard(_handlebarsBase);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _handlebarsSafeString = __webpack_require__(106);
+	var _handlebarsSafeString = __webpack_require__(103);
 
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-	var _handlebarsException = __webpack_require__(94);
+	var _handlebarsException = __webpack_require__(91);
 
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
-	var _handlebarsUtils = __webpack_require__(93);
+	var _handlebarsUtils = __webpack_require__(90);
 
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-	var _handlebarsRuntime = __webpack_require__(107);
+	var _handlebarsRuntime = __webpack_require__(104);
 
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-	var _handlebarsNoConflict = __webpack_require__(108);
+	var _handlebarsNoConflict = __webpack_require__(105);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -433,7 +450,7 @@
 
 
 /***/ }),
-/* 92 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -444,17 +461,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _helpers = __webpack_require__(95);
+	var _helpers = __webpack_require__(92);
 
-	var _decorators = __webpack_require__(103);
+	var _decorators = __webpack_require__(100);
 
-	var _logger = __webpack_require__(105);
+	var _logger = __webpack_require__(102);
 
 	var _logger2 = _interopRequireDefault(_logger);
 
@@ -543,7 +560,7 @@
 
 
 /***/ }),
-/* 93 */
+/* 90 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -673,7 +690,7 @@
 
 
 /***/ }),
-/* 94 */
+/* 91 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -730,7 +747,7 @@
 
 
 /***/ }),
-/* 95 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -741,31 +758,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersBlockHelperMissing = __webpack_require__(96);
+	var _helpersBlockHelperMissing = __webpack_require__(93);
 
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-	var _helpersEach = __webpack_require__(97);
+	var _helpersEach = __webpack_require__(94);
 
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-	var _helpersHelperMissing = __webpack_require__(98);
+	var _helpersHelperMissing = __webpack_require__(95);
 
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-	var _helpersIf = __webpack_require__(99);
+	var _helpersIf = __webpack_require__(96);
 
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-	var _helpersLog = __webpack_require__(100);
+	var _helpersLog = __webpack_require__(97);
 
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-	var _helpersLookup = __webpack_require__(101);
+	var _helpersLookup = __webpack_require__(98);
 
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-	var _helpersWith = __webpack_require__(102);
+	var _helpersWith = __webpack_require__(99);
 
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -782,14 +799,14 @@
 
 
 /***/ }),
-/* 96 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -827,7 +844,7 @@
 
 
 /***/ }),
-/* 97 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -837,9 +854,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -927,7 +944,7 @@
 
 
 /***/ }),
-/* 98 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -937,7 +954,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -958,14 +975,14 @@
 
 
 /***/ }),
-/* 99 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -993,7 +1010,7 @@
 
 
 /***/ }),
-/* 100 */
+/* 97 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1025,7 +1042,7 @@
 
 
 /***/ }),
-/* 101 */
+/* 98 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1043,14 +1060,14 @@
 
 
 /***/ }),
-/* 102 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -1082,7 +1099,7 @@
 
 
 /***/ }),
-/* 103 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1093,7 +1110,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _decoratorsInline = __webpack_require__(104);
+	var _decoratorsInline = __webpack_require__(101);
 
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -1104,14 +1121,14 @@
 
 
 /***/ }),
-/* 104 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -1139,14 +1156,14 @@
 
 
 /***/ }),
-/* 105 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -1192,7 +1209,7 @@
 
 
 /***/ }),
-/* 106 */
+/* 103 */
 /***/ (function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -1213,7 +1230,7 @@
 
 
 /***/ }),
-/* 107 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1233,15 +1250,15 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	var Utils = _interopRequireWildcard(_utils);
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _base = __webpack_require__(92);
+	var _base = __webpack_require__(89);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1516,7 +1533,7 @@
 
 
 /***/ }),
-/* 108 */
+/* 105 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
@@ -1543,7 +1560,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 109 */
+/* 106 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1580,7 +1597,7 @@
 
 
 /***/ }),
-/* 110 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1595,19 +1612,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _parser = __webpack_require__(111);
+	var _parser = __webpack_require__(108);
 
 	var _parser2 = _interopRequireDefault(_parser);
 
-	var _whitespaceControl = __webpack_require__(112);
+	var _whitespaceControl = __webpack_require__(109);
 
 	var _whitespaceControl2 = _interopRequireDefault(_whitespaceControl);
 
-	var _helpers = __webpack_require__(114);
+	var _helpers = __webpack_require__(111);
 
 	var Helpers = _interopRequireWildcard(_helpers);
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	exports.parser = _parser2['default'];
 
@@ -1634,7 +1651,7 @@
 
 
 /***/ }),
-/* 111 */
+/* 108 */
 /***/ (function(module, exports) {
 
 	/* istanbul ignore next */
@@ -2378,7 +2395,7 @@
 
 
 /***/ }),
-/* 112 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2388,7 +2405,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _visitor = __webpack_require__(113);
+	var _visitor = __webpack_require__(110);
 
 	var _visitor2 = _interopRequireDefault(_visitor);
 
@@ -2605,7 +2622,7 @@
 
 
 /***/ }),
-/* 113 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2615,7 +2632,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -2751,7 +2768,7 @@
 
 
 /***/ }),
-/* 114 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2771,7 +2788,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -2987,7 +3004,7 @@
 
 
 /***/ }),
-/* 115 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* eslint-disable new-cap */
@@ -3002,13 +3019,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
-	var _ast = __webpack_require__(109);
+	var _ast = __webpack_require__(106);
 
 	var _ast2 = _interopRequireDefault(_ast);
 
@@ -3565,7 +3582,7 @@
 
 
 /***/ }),
-/* 116 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3575,15 +3592,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _base = __webpack_require__(92);
+	var _base = __webpack_require__(89);
 
-	var _exception = __webpack_require__(94);
+	var _exception = __webpack_require__(91);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
-	var _codeGen = __webpack_require__(117);
+	var _codeGen = __webpack_require__(114);
 
 	var _codeGen2 = _interopRequireDefault(_codeGen);
 
@@ -4699,7 +4716,7 @@
 
 
 /***/ }),
-/* 117 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* global define */
@@ -4707,7 +4724,7 @@
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(93);
+	var _utils = __webpack_require__(90);
 
 	var SourceNode = undefined;
 
@@ -4871,7 +4888,7 @@
 
 
 /***/ }),
-/* 118 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* eslint-disable new-cap */
@@ -4884,7 +4901,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _visitor = __webpack_require__(113);
+	var _visitor = __webpack_require__(110);
 
 	var _visitor2 = _interopRequireDefault(_visitor);
 
@@ -5063,13 +5080,13 @@
 
 
 /***/ }),
-/* 119 */
+/* 116 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 120 */
+/* 117 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5081,7 +5098,12 @@
 	  stages: ["Concept", "Implementation", "Review", "Done"],
 	  groups: [{
 	    taskGroup: "Core Technology",
-	    color: "#77DD77",
+	    colors: {
+	      main: "#00d1df",
+	      border: "#00c4d1",
+	      lightCell: "#f3fbfc",
+	      darkCell: "#f0f8f9"
+	    },
 	    tasks: [{
 	      name: "Vow Settler",
 	      DRI: "rain",
@@ -5107,7 +5129,12 @@
 	    }]
 	  }, {
 	    taskGroup: "Specification",
-	    color: "#FDFD96",
+	    colors: {
+	      main: "#9875c7",
+	      border: "#8d6db9",
+	      lightCell: "#f8f7fb",
+	      darkCell: "#f5f4f7"
+	    },
 	    tasks: [{
 	      name: "Purple Paper",
 	      DRI: "mbrock",
@@ -5124,15 +5151,22 @@
 	    }]
 	  }, {
 	    taskGroup: "Verification",
-	    color: "#FFB347",
+	    colors: {
+	      main: "#ffb25e",
+	      border: "#fdaa59",
+	      lightCell: "#fffaf5",
+	      darkCell: "#fcf7f2"
+	    },
 	    tasks: [{
-	      name: "External Code Review",
+	      name: "Code Review",
+	      fullname: "External Code Review",
 	      DRI: null,
 	      description: "The Dai Credit System will have to be reviewed by multiple competent external auditors before launching.",
 	      subtasks: ["Discuss potential auditors", "Contract with auditors", "Review & Feedback cycle"],
 	      stage: "Concept"
 	    }, {
-	      name: "Proof Production Pipeline",
+	      name: "Proof Production",
+	      fullname: "Proof Production Pipeline",
 	      DRI: null,
 	      description: "This task describes all the work necessary to create formal proofs about the Dai Credit System in linear logic. This will be the primary formal verification effort for the system, ensuring its safety by proving all of its invariants and guarantees. This work will build substantially on the groundwork laid by the Aquamarine paper.",
 	      subtasks: ["Understanding pirapira"],
@@ -5141,7 +5175,12 @@
 	    }]
 	  }, {
 	    taskGroup: "DevOps",
-	    color: "#CB99C9",
+	    colors: {
+	      main: "#a4867f",
+	      border: "#977c75",
+	      lightCell: "#f9f8f7",
+	      darkCell: "#f6f5f4"
+	    },
 	    tasks: [{
 	      name: "Oracle MVP",
 	      DRI: "james",
@@ -5158,20 +5197,28 @@
 	    }]
 	  }, {
 	    taskGroup: "MKR Governance",
-	    color: "#AEC6CF",
+	    colors: {
+	      main: "#6ec78a",
+	      border: "#68ba81",
+	      lightCell: "#f6fbf8",
+	      darkCell: "#f3f8f5"
+	    },
 	    tasks: [{
-	      name: "Establishment of the Dai Foundation",
+	      name: "Dai Foundation",
+	      fullname: "Establishment of the Dai Foundation",
 	      DRI: "rune",
 	      description: "This encompasses all the work necessary to get the Maker development fund transferred to a legal entity called the Dai Foundation. The development fund is currently administered by a transition team appointed by Rune, the original creator of all MKR, while he works with MME Legal to get the Dai Foundation established as a Stiftung in Zug Switzerland.",
 	      links: ["https://blog.makerdao.com/2017/02/19/establishment-of-the-dai-foundation/", "http://www.mme.ch/"],
 	      stage: "Implementation"
 	    }, {
-	      name: "Dai Credit System Dashboard",
+	      name: "Dashboard",
+	      fullname: "Dai Credit System Dashboard",
 	      DRI: "michael",
 	      description: "This will be a UI lens to view and interact with the Dai Credit System. It will allow for a bird's eye view of the system's open CDP set, oracle set, target price and rate. It will also allow a user to open a new CDP and manage any owned by their address. This explorer will be built on the DappHub application platform.",
 	      stage: "Concept"
 	    }, {
-	      name: "Proposal Bulletin Board with MKR Signaling",
+	      name: "Bulletin Board",
+	      fullname: "Proposal Bulletin Board with MKR Signaling",
 	      DRI: "zandy",
 	      description: "This task will begin to bootstrap the scientific community of MKR holders. Each CDP type will be posted publicly here for MKR holders to signal their approval or disapproval. Because we want to emphasize scientific consensus for MKR decisions, each proposal will have added Evidence and Interpretation sections to present the reasoning behind the proposal.",
 	      stage: "Concept"
@@ -5182,7 +5229,7 @@
 	exports.default = data;
 
 /***/ }),
-/* 121 */
+/* 118 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5193,11 +5240,11 @@
 	function fitToContainer(canvas) {
 	  // Make it visually fill the positioned parent
 	  canvas.style.width = '100%';
-	  canvas.style.height = '840px';
+	  canvas.style.height = '100%';
 
 	  // ...then set the internal size to match
-	  canvas.width = canvas.offsetWidth;
-	  canvas.height = canvas.offsetHeight;
+	  canvas.width = canvas.offsetWidth / 2;
+	  canvas.height = canvas.offsetHeight / 2;
 	}
 
 	var paused = false;
@@ -5212,9 +5259,7 @@
 	        _ref$lineWidth = _ref.lineWidth,
 	        lineWidth = _ref$lineWidth === undefined ? 4 : _ref$lineWidth,
 	        _ref$tileWidth = _ref.tileWidth,
-	        tileWidth = _ref$tileWidth === undefined ? 200 : _ref$tileWidth,
-	        _ref$alpha = _ref.alpha,
-	        alpha = _ref$alpha === undefined ? 0.4 : _ref$alpha;
+	        tileWidth = _ref$tileWidth === undefined ? 200 : _ref$tileWidth;
 
 	    var targetCanvas = document.querySelector('.animated-background');
 	    var targetCtx = targetCanvas.getContext('2d');
@@ -5238,7 +5283,6 @@
 	    modelCanvas.height = (lineSeparation + lineWidth) * lines.length + lineWidth;
 
 	    // Context global setup
-	    ctx.globalAlpha = alpha;
 	    ctx.lineCap = "round";
 	    ctx.lineWidth = lineWidth;
 
@@ -5290,10 +5334,28 @@
 	exports.default = background;
 
 /***/ }),
+/* 119 */
+/***/ (function(module, exports) {
+
+	module.exports = "dist/d02c22423ede1f24959c421d309fefd0.svg";
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports) {
+
+	module.exports = "dist/f472a58e45d11cbb1db8a1cd77008b9f.svg";
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports) {
+
+	module.exports = "dist/d2309769abca5d0f0ab88e40260f2ffb.svg";
+
+/***/ }),
 /* 122 */
 /***/ (function(module, exports) {
 
-	module.exports = "dist/2854f3a0b86bd2c41e0ffae651c43a6c.svg";
+	module.exports = "dist/da1804c7db5cd9adee7bacce56917cb2.svg";
 
 /***/ })
 /******/ ]);

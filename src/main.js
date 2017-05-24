@@ -1,14 +1,10 @@
 import 'bootstrap/less/bootstrap.less';
 import './styles/main.less';
 import Handlebars from 'handlebars';
-import data from './data';
-import background from './background';
 import logoImage from './maker_black.svg';
-import twitterImage from './twitter_black.svg';
-import chatImage from './chat_black.svg';
-import githubImage from './github_black.svg';
 
 const templates = {};
+const data = pipelineData;
 
 (function addTaskIdsAndColor() {
 	let id = 0;
@@ -66,12 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	document.getElementById("content").innerHTML = templates['main'](data);
 
-	// todo: fix webpack build and get rid of this
-	document.getElementById("logo").setAttribute('src', logoImage);
-	document.getElementById("twitter-img").setAttribute('src', twitterImage);
-	document.getElementById("chat-img").setAttribute('src', chatImage);
-	document.getElementById("github-img").setAttribute('src', githubImage);
-
 	// Bind click events
 	document.querySelectorAll('.task-link').forEach(link => {
     link.addEventListener('click', event => {
@@ -80,26 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			const taskId = event.target.dataset.taskId;
 			const task = getTaskById(taskId);
 			document.getElementById("modals").innerHTML = templates['task-modal'](task);
-			background.pause();
 			function closeModal(event) {
 				event.preventDefault();
 				document.getElementById("modals").innerHTML = '';
-				background.resume();
 			}
 			document.getElementById("close-modal-button").addEventListener('click', closeModal);
 			document.getElementById("task-modal-overlay").addEventListener('click', closeModal);
     });
 	});
-
-	// Animated background
-	if (screen.width > 768) {
-		background.start({
-			colors: data.groups.map(group => group.colors.main),
-			lineSeparation: 22,
-			lineLength: 20,
-			lineWidth: 8,
-			tileWidth: 200,
-			alpha: 0.4
-		});
-	}
 });

@@ -32,7 +32,7 @@ pipelineData = {
       {
         name: "Multi-Collateral Cage",
         DRI: null,
-        description: "The multi-collateral cage process is what allows any Dai Stablecoin System to be gracefully shut down. Like Sai's cage system, this process will include a way for CDP's to be wound down in an orderly fashion and a way for Dai holders to redeem their stablecoins in exchange for collateral. This work item will allow us to launch the Dai Stablecoin System before having mathematically proven its correctness. The cage function will be engaged by administrators if the a serious error is discovered, or during an upgrade process from one system to the next, such as when a formally verified system is completed.",
+        description: "The multi-collateral cage process is what allows any Dai Stablecoin System to be gracefully shut down. Like Sai's cage system, this process will include a way for CDP's to be wound down in an orderly fashion and a way for Dai holders to redeem their stablecoins in exchange for collateral. This work item will allow us to launch the Dai Stablecoin System before having mathematically proven its correctness. The cage function will be engaged by administrators if a serious error is discovered, or during an upgrade process from one system to the next, such as when a formally verified system is completed.",
         stage: "Concept"
       },
       {
